@@ -112,6 +112,24 @@
                 populateList(items, itemsList);
             }
 
+            function addAllItems () {
+                console.log("Hi")
+                items.forEach(item => {
+                    item.done = true;
+                })
+                localStorage.setItem('items',JSON.stringify(items));
+                populateList(items, itemsList);
+            }
+
+            function clearAllItems () {
+                console.log("Hi")
+                items.forEach(item => {
+                    item.done = false;
+                })
+                localStorage.setItem('items',JSON.stringify(items));
+                populateList(items, itemsList);
+            }
+
             function deleteAllItems () {
                 items.forEach(item => {
                     items.length = 0;
@@ -124,11 +142,10 @@
             addItems.addEventListener("submit", addItem);
             itemsList.addEventListener("click", toggleDone);
 
-            selectAll.addEventListener('click', (e) => {console.log(e);})
-            clearAll.addEventListener('click', (e) => {console.log(e);});
+            selectAll.addEventListener('click', addAllItems)
+            clearAll.addEventListener('click', clearAllItems);
             deleteAll.addEventListener('click', deleteAllItems);
 
-            
             populateList(items, itemsList)
 
 		</script>
