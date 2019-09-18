@@ -31,7 +31,8 @@ function paintToCanvas() {
 		// pixels = redEffect(pixels);
 		// pixels = rgbSplit(pixels);
 		// ctx.globalAlpha = 0.3; // ghosting effect
-		pixels = greenScreen(pixels);
+		// pixels = greenScreen(pixels);
+		pixels = scanLines(pixels);
 
 		// then put them back
 		ctx.putImageData(pixels, 0, 0);
@@ -96,6 +97,29 @@ function greenScreen(pixels) {
 		}
 	}
 
+	return pixels;
+}
+
+function scanLines(pixels) {
+	const numPixels = pixels.data.length / 4;
+	const vidWidthPixels = video.videoWidth * 4;
+	const vidHeight = video.videoHeight;
+	const lineFrequency = 2; // draw a scan line every n lines
+	const scanLineHeight = 1; // height in px of each scanline
+	const scanLineColor = [80, 80, 80];
+
+	// outer loop, line by line
+	for (let i = 1; i < vidHeight; i += lineFrequency) {
+		// inner loop, each pixel in current line
+		for (let j = 0; j < vidWidthPixels * scanLineHeight; j += 4) {
+			pixels.data[i * (vidWidthPixels * scanLineHeight) + j] =
+				scanLineColor[0];
+			pixels.data[i * (vidWidthPixels * scanLineHeight) + j + 1] =
+				scanLineColor[1];
+			pixels.data[i * (vidWidthPixels * scanLineHeight) + j + 2] =
+				scanLineColor[2];
+		}
+	}
 	return pixels;
 }
 
