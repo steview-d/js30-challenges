@@ -1,93 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Console Tricks!</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Console Tricks!</title>
+    </head>
+    <body>
+        <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
-  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+        <script>
+            const dogs = [
+                { name: "Snickers", age: 2 },
+                { name: "hugo", age: 8 }
+            ];
 
-  <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+            function makeGreen() {
+                const p = document.querySelector("p");
+                p.style.color = "#BADA55";
+                p.style.fontSize = "50px";
+            }
 
-    function makeGreen() {
-      const p = document.querySelector('p');
-      p.style.color = '#BADA55';
-      p.style.fontSize = '50px';
-    }
+            // Regular
+            console.log("Hello World");
 
-    // Regular
-    console.log("Hello World");
+            // Interpolated
+            var varName = "big old";
+            console.log(`Hello ${varName} world`);
 
-    // Interpolated
-    var varName = 'big old'
-    console.log(`Hello ${varName} world`)
+            // Styled
+            console.log("%c I am some great text", "font-size: 26px");
+            console.log("%cHello world", "font-size: 18px; background: red");
 
-    // Styled
-    console.log('%c I am some great text', 'font-size: 26px');
-    console.log('%cHello world', 'font-size: 18px; background: red');
+            // warning!
+            console.warn("This is a warning");
 
-    // warning!
-    console.warn('This is a warning');
+            // Error :|
+            console.error("This is an error - not a real one!");
 
-    // Error :|
-    console.error('This is an error - not a real one!')
+            // Info
+            console.info("This is some information");
 
-    // Info
-    console.info('This is some information')
+            // Testing
+            console.assert(1 === 1, "That is wrong");
+            console.assert(1 === 2, "That is wrong");
+            const p = document.querySelector("p");
+            console.assert(
+                p.classList.contains("ouch"),
+                "Does not contain that word"
+            );
 
-    // Testing
-    console.assert(1 === 1, 'That is wrong')
-    console.assert(1 === 2, 'That is wrong')
-    const p = document.querySelector('p');
-    console.assert(p.classList.contains('ouch'), 'Does not contain that word')
+            // clearing
+            console.clear();
 
-    // clearing
-    console.clear()
+            // Viewing DOM Elements
+            console.log(p);
+            console.dir(p);
 
-    // Viewing DOM Elements
-    console.log(p);
-    console.dir(p);
+            // Grouping together
+            // Can use .group() as below, but also .groupCollapsed() too.
+            dogs.forEach(dog => {
+                console.group(`${dog.name}`);
+                console.log(`This dog is called ${dog.name}`);
+                console.log(`${dog.name} is ${dog.age} years old`);
+                console.log(`That's ${dog.name * 7} in dog years`);
+                console.groupEnd(`${dog.name}`);
+            });
 
-    // Grouping together
-    // Can use .group() as below, but also .groupCollapsed() too.
-    dogs.forEach(dog => {
-      console.group(`${dog.name}`);
-      console.log(`This dog is called ${dog.name}`);
-      console.log(`${dog.name} is ${dog.age} years old`);
-      console.log(`That's ${dog.name * 7} in dog years`);
-      console.groupEnd(`${dog.name}`)
-    });
+            // counting
+            console.count("Doc");
+            console.count("Doc");
+            console.count("Marty");
+            console.count("Marty");
+            console.count("Doc");
+            console.count("Doc");
+            console.count("Marty");
+            console.count("Doc");
+            console.count("Doc");
+            console.count("Marty");
+            console.count("Marty");
+            console.count("Marty");
+            console.count("Doc");
 
-    // counting
-    console.count('Doc');
-    console.count('Doc');
-    console.count('Marty');
-    console.count('Marty');
-    console.count('Doc');
-    console.count('Doc');
-    console.count('Marty');
-    console.count('Doc');
-    console.count('Doc');
-    console.count('Marty');
-    console.count('Marty');
-    console.count('Marty');
-    console.count('Doc');
-    
+            // timing
+            console.time("fetching data");
+            fetch(
+                "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json"
+            )
+                .then(data => data.json())
+                .then(data => {
+                    console.timeEnd("fetching data");
+                    console.log(data);
+                });
 
-    // timing
-    console.time('fetching data');
-    fetch('https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json')
-      .then(data => data.json())
-      .then(data => {
-        console.timeEnd('fetching data');
-        console.log(data);
-      })
-
-    // table
-    console.table(dogs)
-
-  </script>
-</body>
+            // table
+            console.table(dogs);
+        </script>
+    </body>
 </html>
